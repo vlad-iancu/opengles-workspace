@@ -11,6 +11,7 @@ add_library(opengles-workspace_lib STATIC
     src/main_loop.cpp
     src/renderer.cpp
     src/input.cpp
+    src/shader.cpp
     third_party/glad/GL/src/gl.c
     )
 
@@ -24,3 +25,7 @@ add_executable(opengles-workspace
 )
 
 target_link_libraries(opengles-workspace opengles-workspace_lib glfw ${GLFW_LIBRARIES})
+
+configure_file(${CMAKE_SOURCE_DIR}/src/vertexShader.vert ${CMAKE_BINARY_DIR}/vertexShader.vert COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/src/fragmentShader.frag ${CMAKE_BINARY_DIR}/fragmentShader.frag COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/Chessboard.png ${CMAKE_BINARY_DIR}/Chessboard.png COPYONLY)

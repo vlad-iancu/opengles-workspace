@@ -27,7 +27,9 @@ GlfwApplication::GlfwApplication(size_t width, size_t height)
 	: mWidth(width)
 	, mHeight(height)
 {
-	if(!glfwInit()) {
+	auto status = glfwInit();
+	std::cout << status << std::endl;
+	if(!status) {
         throw Exception("Failed to initialize GLFW");
     }
     glfwSetErrorCallback(error_callback);
