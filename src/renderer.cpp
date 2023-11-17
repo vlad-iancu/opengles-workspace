@@ -15,10 +15,15 @@
 
 namespace opengles_workspace
 {
-	GLFWRenderer::GLFWRenderer(std::shared_ptr<Context> context)
+	GLFWRenderer::GLFWRenderer(
+		std::shared_ptr<Context> context,
+		std::shared_ptr<Shader> pShader
+		)
 		: mContext(std::move(context)),
-		mShader("vertexShader.vert", "fragmentShader.frag")
+		pShader(pShader),
+		mGameState()
 	{
+		mGameState.init();
 		//Create four vertices of a rectangle
 		std::array<Vertex, 4> vertices = {
 			
@@ -94,13 +99,7 @@ namespace opengles_workspace
 	}
 
 	void GLFWRenderer::render() {
-		//Render the triangle
-		mShader.use();
-		glBindVertexArray(VAO);
-		glBindTexture(GL_TEXTURE_2D, mTexture);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glBindVertexArray(0);
+		
 		glfwSwapBuffers(window());
 	}
 
@@ -108,6 +107,7 @@ namespace opengles_workspace
 		if (glfwWindowShouldClose(window())) {
 			return false;
 		}
+		render();
 		return true;
 	}
 }

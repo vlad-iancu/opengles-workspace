@@ -51,10 +51,40 @@ int GlfwApplication::run() {
 	MainLoop loop;
 	auto ctx = std::make_shared<Context>(pWindow.get());
 	std::shared_ptr<Input> pInput(Input::create(ctx));
-	std::shared_ptr<GLFWRenderer> pRenderer = std::make_shared<GLFWRenderer>(ctx);
+	std::shared_ptr<Shader> pShader = std::make_shared<Shader>("vertexShader.vert", "fragmentShader.frag");
+	std::shared_ptr<SnakeGameState> pGameState = std::make_shared<SnakeGameState>(BOARD_WIDTH, BOARD_HEIGHT, pShader, ctx);
+	pGameState->init();
+	pGameState->setSnakeDirection(0, 1);
+	pGameState->setSnakePosition(0, 2);
+	pGameState->setSnakeTail(0, 0);
+	pGameState->setBoard(0, 0, LEFT_MASK);
+	pGameState->setBoard(0, 1, LEFT_MASK);
+	pGameState->setBoard(0, 2, LEFT_MASK);
+	std::shared_ptr<GLFWRenderer> pRenderer = std::make_shared<GLFWRenderer>(ctx, pShader);
 	pInput->registerKeyCallback([&](Key key, KeyMode keyMode) {
 			if (key == Key::ESCAPE && keyMode == KeyMode::PRESS) {
 				glfwSetWindowShouldClose(pWindow.get(), GLFW_TRUE);
+				return false;
+			}
+			if (key == Key::LEFT && keyMode == KeyMode::PRESS) {
+				if(pGameState->getSnakeDirectionY() != 1)
+				pGameState->setSnakeDirection(0, -1);
+				
+				return false;
+			}
+			if (key == Key::DOWN && keyMode == KeyMode::PRESS) {
+				if(pGameState->getSnakeDirectionX() != -1)
+				pGameState->setSnakeDirection(1, 0);
+				return false;
+			}
+			if (key == Key::RIGHT && keyMode == KeyMode::PRESS) {
+				if(pGameState->getSnakeDirectionY() != -1)
+				pGameState->setSnakeDirection(0, 1);
+				return false;
+			}
+			if (key == Key::UP && keyMode == KeyMode::PRESS) {
+				if(pGameState->getSnakeDirectionX() != 1)
+				pGameState->setSnakeDirection(-1, 0);
 				return false;
 			}
 			return true;
@@ -62,6 +92,7 @@ int GlfwApplication::run() {
 
 	loop.addPolledObject(pInput);
 	loop.addPolledObject(pRenderer);
+	loop.addPolledObject(pGameState);
 	pRenderer->render();
 	loop.run();
 	return 0;

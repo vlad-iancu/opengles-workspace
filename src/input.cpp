@@ -46,7 +46,7 @@ namespace opengles_workspace {
 			for (auto& cb : mKeyCallbacks) {
 				auto translatedKey = toKey(key);
 				if (!translatedKey) {
-					fprintf(stderr, "Ingore key: non-convertible");
+					fprintf(stderr, "Ignore key: non-convertible");
 					break;
 				}
 				if (cb(*translatedKey, toKeyMode(action))) {
@@ -70,6 +70,8 @@ namespace opengles_workspace {
 				return Key::DOWN;
 			case GLFW_KEY_SPACE:
 				return Key::SPACE;
+			case GLFW_KEY_UP:
+				return Key::UP;
 			default:
 				return {};
 			}

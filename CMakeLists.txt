@@ -12,6 +12,7 @@ add_library(opengles-workspace_lib STATIC
     src/renderer.cpp
     src/input.cpp
     src/shader.cpp
+    src/SnakeGameState.cpp
     third_party/glad/GL/src/gl.c
     )
 
@@ -29,3 +30,5 @@ target_link_libraries(opengles-workspace opengles-workspace_lib glfw ${GLFW_LIBR
 configure_file(${CMAKE_SOURCE_DIR}/src/vertexShader.vert ${CMAKE_BINARY_DIR}/vertexShader.vert COPYONLY)
 configure_file(${CMAKE_SOURCE_DIR}/src/fragmentShader.frag ${CMAKE_BINARY_DIR}/fragmentShader.frag COPYONLY)
 configure_file(${CMAKE_SOURCE_DIR}/Chessboard.png ${CMAKE_BINARY_DIR}/Chessboard.png COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/Snake.png ${CMAKE_BINARY_DIR}/Snake.png COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/Apple.png ${CMAKE_BINARY_DIR}/Apple.png COPYONLY)

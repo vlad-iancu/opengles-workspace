@@ -11,7 +11,8 @@ namespace opengles_workspace {
 		LEFT,
 		DOWN,
 		RIGHT,
-		SPACE
+		SPACE,
+		UP
 	};
 
 	enum class KeyMode
