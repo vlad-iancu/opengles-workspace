@@ -30,7 +30,6 @@ void SnakeGameState::init()
     mSnakeY = 0;
     mAppleX = mBoardWidth / 2;
     mAppleY = mBoardHeight / 2;
-    mScore = 0;
     mDirectionX = 1;
     mDirectionY = 0;
     mGameOver = false;
@@ -228,7 +227,6 @@ void SnakeGameState::update()
     
     if(mBoard[nextX][nextY] == (int)TableElement::Apple)
     {
-        mScore++;
         apple = true;
     }
     if(mDirectionX == 1)

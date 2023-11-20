@@ -43,7 +43,6 @@ namespace opengles_workspace
         int mTailY;
         int mAppleX;
         int mAppleY;
-        int mScore;
         int mDirectionX;
         int mDirectionY;
         bool mGameOver;
@@ -64,7 +63,9 @@ namespace opengles_workspace
         // tranform(i, j) = mTranslations[i * mBoardWidth + j]
         std::vector<glm::mat4> mTranslations;
         std::shared_ptr<Shader> pShader;   
-        std::shared_ptr<Context> pContext; 
+        std::shared_ptr<Context> pContext;
+        std::chrono::high_resolution_clock::time_point mTime;
+
 
     public:
         SnakeGameState(
@@ -80,7 +81,6 @@ namespace opengles_workspace
         void moveSnake();
         GLFWwindow* window() const { return static_cast<GLFWwindow*>(pContext->window()); }
         bool poll() override;
-        std::chrono::high_resolution_clock::time_point mTime;
 
         public:
             // Getter and setter functions for snake direction
